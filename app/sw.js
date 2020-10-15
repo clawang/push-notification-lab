@@ -17,8 +17,8 @@ limitations under the License.
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
-  'index.html',
-  'styles/main.css',
+  //'index.html',
+  //'styles/main.css',
   'images/jessicaldn.png',
 ];
 
