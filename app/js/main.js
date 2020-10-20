@@ -145,6 +145,11 @@ const app = (() => {
       subscriptionJson.textContent = JSON.stringify(subscription);
       endpointURL.textContent = subscription.endpoint;
       subAndEndpoint.style.display = 'block';
+      $.ajax({
+        type: 'PUT',
+        url: '/subscription',
+        data: JSON.stringify(subscription)
+      });
     } else {
       subAndEndpoint.style.display = 'none';
     }

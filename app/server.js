@@ -25,6 +25,8 @@ const notifications = [
   }
 ];
 
+let subscriptionObject = {};
+
 // This serves static files from the specified directory
 app.use(express.static(__dirname));
 
@@ -38,6 +40,11 @@ app.use((req, res, next) => {
 app.get("/notif", (req, res, next) => {
     res.json(notifications[index]);
     index = (index + 1) % 3;
+});
+
+app.put("/subscription", (req, res, next) => {
+  console.log(req);
+  res.send("PUT Request Called");
 });
 
 const server = app.listen(8081, () => {

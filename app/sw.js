@@ -1,13 +1,31 @@
-const cacheName = 'cache-v1';
+const cacheString = 'cache-v';
 const precacheResources = [
   '/',
-  //'index.html',
-  //'styles/main.css',
-  'images/jessicaldn.png',
+  'index.html',
+  'styles/main.css',
+  'images/jessicaLondon_UC.svg',
+  'images/shirt1.jpg',
+  'images/shirt2.jpg',
+  'images/shirt3.jpg',
+  'images/shirt4.jpg',
+  'images/shirt5.jpg',
+  'images/account-icon.png',
+  'images/bag-icon.png',
+  'images/card-icon.png',
+  'images/catalog-icon.png',
+  'images/search-icon.png',
+  'samples/page1.html',
+  'samples/page2.html',
+  'samples/page3.html'
 ];
+
+let cacheNumber = 0;
+let cacheName;
 
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
+  cacheNumber += 1;
+  cacheName = cacheString.concat(cacheNumber);
   event.waitUntil(
     caches.open(cacheName)
       .then(cache => {
@@ -17,20 +35,64 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  console.log('Service worker activate event!');
+  console.log('Service worker activate event!');event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      console.log(cacheNames);
+      return Promise.all(
+        cacheNames.filter(function(name) {
+          return name.charAt(name.length - 1) !== cacheNumber;
+        }).map(function(name) {
+          return caches.delete(name);
+        })
+      );
+    })
+  );
 });
 
 self.addEventListener('fetch', event => {
   console.log('Fetch intercepted for:', event.request.url);
-  event.respondWith(caches.match(event.request)
-    .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request);
-      })
+  event.respondWith(
+    caches.open(cacheName).then(function (cache) {
+      return cache.match(event.request).then(function (response) {
+        var fetchPromise = fetch(event.request).then(function (networkResponse) {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+        return response || fetchPromise;
+      });
+    }),
+  );
+    event.waitUntil(
+      update(event.request)
+      .then(refresh)
     );
 });
+
+function update(request) {
+  return caches.open(cacheName).then(function (cache) {
+    return fetch(request).then(function (response) {
+      return cache.put(request, response.clone()).then(function () {
+        return response;
+      });
+    });
+  });
+}
+ 
+function refresh(response) {
+  return self.clients.matchAll().then(function (clients) {
+    clients.forEach(function (client) {
+ 
+      var message = {
+        type: 'refresh',
+        url: response.url,
+        eTag: response.headers.get('ETag')
+      };
+ 
+      client.postMessage(JSON.stringify(message));
+      console.log('service worker refreshed');
+    });
+  });
+}
 
 
 // TODO 2.6 - Handle the notificationclose event
