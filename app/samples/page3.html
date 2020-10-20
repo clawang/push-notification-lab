@@ -6,7 +6,7 @@
   <!-- Set character encoding -->
   <meta charset="utf-8">
   <!-- Set title -->
-  <title>New Arrivals</title>
+  <title>Cart</title>
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="/node_modules/slick-carousel/slick/slick-theme.css">
   <link rel="stylesheet" href="/node_modules/slick-carousel/slick/slick.css">
@@ -30,7 +30,7 @@
           <li><div class="icon icg-catalog"></div>Catalog</li>
           <li><div class="icon icg-card"></div>Card</li>
           <li><div class="icon icg-account"></div>Account</li>
-          <a href="page3.html"><li><div class="icon icg-bag"></div>My Bag</li></a>
+          <li><div class="icon icg-bag"></div>My Bag</li>
         </ul>
       </div>
     </div>
@@ -49,64 +49,38 @@
         <li><a href="page1.html">Clearance</a></li>
       </ul>
     </div>
-  <header>
-    <div class="header-container">
-      <h1>NEW ARRIVALS</h1>
-    </div>
-  </header>
-  <section class="product-main">
-    <aside class="sidebar">
-      <ul>
-        <li>New Arrivals</li>
-        <li>Leather Shop</li>
-        <li>Denim Shop</li>
-        <li>Mix & Match Denim</li>
-        <li>Mix & Match Sweater Twinsets</li>
-        <li>Mix & Match Everyday Knit Collection</li>
-        <li>Ellos</li>
-        <li>Accessory Shop</li>
-      </ul>
-    </aside>
-    <div class="clothing">
-      <div>
-        <div class="carousel-card">
-          <img src="../images/shirt1.jpg">
-          <h3>Georgette Button Front Tunic</h3>
-          <h4>$24.99</h4>
+    <section class="product-main">
+        <div class="cart">
+            <h3>MY SHOPPING CART</h3>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr>
+                    <td class="cart-item">
+                        <img src="../images/shirt5.jpg">
+                        <div>
+                            <h3>Fine Gauge Crewneck Shell</h3>
+                            <p><span>SIZE: </span>12</p>
+                            <p><span>PRICE: </span>$44.99</p>
+                        </div>
+                    </td>
+                    <td>1</td>
+                    <td>$44.99</td>
+                </tr>
+            </table>
         </div>
-      </div>
-      <div>
-        <div class="carousel-card">
-          <img src="../images/shirt2.jpg">
-          <h3>Mega Tunic</h3>
-          <h4>$29.99</h4>
+        <div class="checkout">
+            <h2>Order Summary</h2>
+            <p>SUBTOTAL: $44.99</p>
+            <button>CHECK OUT</button>
         </div>
-      </div>
-      <div>
-        <div class="carousel-card">
-          <img src="../images/shirt3.jpg">
-          <h3>Square Neck Tee</h3>
-          <h4>$16.99</h4>
-        </div>
-      </div>
-      <div>
-        <div class="carousel-card">
-          <img src="../images/shirt4.jpg">
-          <h3>Fine Gauge Cardigan</h3>
-          <h4>$29.99</h4>
-        </div>
-      </div>
-      <div>
-        <div class="carousel-card">
-          <img src="../images/shirt5.jpg">
-          <h3>Fine Gauge Crewneck Shell</h3>
-          <h4>$24.99</h4>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="/node_modules/slick-carousel/slick/slick.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
