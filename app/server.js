@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 const notifications = [
   {
@@ -29,6 +30,7 @@ let subscriptionObject = {};
 
 // This serves static files from the specified directory
 app.use(express.static(__dirname));
+app.use(bodyParser.json());
 
 let index = 0;
 
@@ -42,9 +44,12 @@ app.get("/notif", (req, res, next) => {
     index = (index + 1) % 3;
 });
 
-app.put("/subscription", (req, res, next) => {
-  console.log(req);
-  res.send("PUT Request Called");
+app.post("/subscription", (req, res, next) => {
+  subscriptionObject = req.body;
+});
+
+app.get("/subobject", (req, res, next) => {
+  res.json(subscriptionObject);
 });
 
 const server = app.listen(8081, () => {

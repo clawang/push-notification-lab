@@ -32,7 +32,7 @@ const app = (() => {
     
         // TODO 2.4 - Add 'options' object to configure the notification
         const options = {
-          body: 'First notification!',
+          body: 'You have successfully subscribed to notifications from Jessica London.',
           icon: 'images/jl.jpg',
           vibrate: [100, 50, 100],
           data: {
@@ -52,7 +52,7 @@ const app = (() => {
           tag: 'id1'
         };
     
-        reg.showNotification('Hello world!', options);
+        reg.showNotification('Congrats!', options);
       });
     }
 
@@ -101,6 +101,7 @@ const app = (() => {
       updateSubscriptionOnServer(subscription);
       isSubscribed = true;
       updateBtn();
+      displayNotification();
     })
     .catch(err => {
       if (Notification.permission === 'denied') {
@@ -142,12 +143,13 @@ const app = (() => {
     const subAndEndpoint = document.querySelector('.js-sub-endpoint');
 
     if (subscription) {
-      subscriptionJson.textContent = JSON.stringify(subscription);
-      endpointURL.textContent = subscription.endpoint;
-      subAndEndpoint.style.display = 'block';
+      //subscriptionJson.textContent = JSON.stringify(subscription);
+      //endpointURL.textContent = subscription.endpoint;
+      //subAndEndpoint.style.display = 'block';
       $.ajax({
-        type: 'PUT',
+        type: 'POST',
         url: '/subscription',
+        contentType: 'application/json',
         data: JSON.stringify(subscription)
       });
     } else {
@@ -186,10 +188,6 @@ const app = (() => {
     }
     return outputArray;
   }
-
-  notifyButton.addEventListener('click', () => {
-    displayNotification();
-  });
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
